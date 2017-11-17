@@ -2,10 +2,16 @@ require('constants').SIGTERM;
 require('constants').SIGUSR2;
 require('path').win32;
 
+// exposing the locations model to the application through db.js
+require('./locations');
+
 var mongoose = require('mongoose');
 
 // Locator is the name of the database with which we will work
 var dbURI = 'mongodb://localhost:27017/Locator';
+if (process.env.NODE_ENV === 'production') {
+    dbURI = 'mongodb://adityaDev:adityadev@ds113046.mlab.com:13046/locator';
+}
 
 // using named connection, this is used when we are working with multiple dbs
 // var locatorDB = mongoose.createConnection(dbURI);
