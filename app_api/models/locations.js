@@ -28,10 +28,10 @@ var reviewSchema = new mongoose.Schema({
 // location data will be stored in GeoJSON format: {longitude, latitude}
 var locationSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    adress: String,
+    address: String,
     rating: { type: Number, "default": 0, min: 0, max: 5 },
     facilities: [String],
-    coords: { type: Number, index: '2dsphere' },
+    coords: { type: [Number], index: '2dsphere', required: true },
     openingTimes: [openingTimeSchema],
     reviews: [reviewSchema]
 });
