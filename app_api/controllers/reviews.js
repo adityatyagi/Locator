@@ -22,14 +22,15 @@ var doAddReview = function(req, res, location) {
             var thisReview;
 
             if (err) {
-                sendJsonResponse(res, 404, err);
+                console.log(err);
+                sendJsonResponse(res, 400, err);
             } else {
                 // adding a new review will bring a "rating" with it, therefore we have to update the overall rating of the location
                 updateAverageRating(location._id);
 
                 // creating the "content" for the response: which will be the newely added review
                 thisReview = location.reviews[location.reviews.length - 1]; // taking the last review added
-                sendJsonResponse(res, 200, thisReview);
+                sendJsonResponse(res, 201, thisReview);
             }
         });
     }

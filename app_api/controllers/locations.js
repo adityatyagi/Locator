@@ -37,7 +37,7 @@ module.exports.locationsListByDistance = function(req, res) {
         num: 10 // maximum number of results shown on the homepage
     };
 
-    if (!lng || !lat) {
+    if ((!lng && lng !== 0) || (!lat && lat !== 0)) {
         sendJsonResponse(res, 404, { "message": "lng and lat parameters are required" });
         return;
     }
