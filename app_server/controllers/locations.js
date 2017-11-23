@@ -1,3 +1,8 @@
+/*
+For the distances: https://forums.manning.com/posts/list/37802.page
+https://docs.mongodb.com/manual/reference/command/geoNear/
+*/
+
 var request = require('request');
 
 // the Base URL for the requests made to the API will be different for the live and the development environment
@@ -78,7 +83,7 @@ module.exports.homelist = function(req, res) {
             lat: 28.633919,
             //lng: 0,
             //lat: 0,
-            maxDistance: 20
+            maxDistance: 2000
         }
     };
 
@@ -100,10 +105,10 @@ module.exports.homelist = function(req, res) {
     var _formatDistance = function(distance) {
         var numDistance, unit;
         if (distance > 1) {
-            numDistance = parseFloat(distance).toFixed(1);
+            numDistance = parseFloat(distance / 1000).toFixed(1);
             unit = 'km'
         } else {
-            numDistance = parseInt(distance * 1000, 10);
+            numDistance = parseInt(distance, 10);
             unit = 'm';
         }
         return numDistance + unit;
