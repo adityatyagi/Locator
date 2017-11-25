@@ -17,3 +17,8 @@
 .reviewTimestamp {
     color: #ccc;
 }
+
+#filter {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

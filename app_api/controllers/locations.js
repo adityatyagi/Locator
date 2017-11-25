@@ -4,24 +4,6 @@
 var mongoose = require('mongoose'); // gives controller access to the database connection
 var Loc = mongoose.model('Location'); // brings in the location model so that we can interact with the Locations collection
 
-var theEarth = (function() {
-    var earthRadius = 6731; // km, miles is 3959
-
-    var getDistanceFromRads = function(rads) {
-        return parseFloat(rads * earthRadius);
-    };
-
-    var getRadsFromDistance = function(distance) {
-        return parseFloat(distance / earthRadius);
-    };
-
-    return {
-        getDistanceFromRads: getDistanceFromRads,
-        getRadsFromDistance: getRadsFromDistance
-    };
-})();
-
-
 module.exports.locationsListByDistance = function(req, res) {
     var lng = parseFloat(req.query.lng);
     var lat = parseFloat(req.query.lat);
@@ -47,7 +29,7 @@ module.exports.locationsListByDistance = function(req, res) {
     Loc.geoNear(point, geoOptions, function(err, results, stats) {
 
         //console.log(point);
-        console.log(results);
+        //console.log(results);
 
         var locations = [];
 

@@ -41,7 +41,7 @@ var getLocationInfo = function(req, res, callback) {
 };
 
 
-
+/*
 var renderHomepage = function(req, res, responseBody) {
     var message;
     // if response isn't and array, set the message and set reponseBody to an empty array
@@ -65,10 +65,25 @@ var renderHomepage = function(req, res, responseBody) {
         message: message
     });
 }
+*/
+
+var renderHomepage = function(req, res) {
+    res.render("locations-list", {
+        title: "Locator | List of nearby locations",
+        pageHeader: {
+            title: "Locator",
+            strapline: "Find places to work with wifi near you!"
+        },
+        sidebar: "Looking for wifi and a seat? Locator helps you find places to work",
+        //locations: responseBody,
+        //message: message
+    });
+}
 
 
 
 /* GET home page -> the page with locations list */
+/*
 module.exports.homelist = function(req, res) {
     // rendering should be done after the data has been fetched from the database
     var requestOptions, path;
@@ -83,7 +98,7 @@ module.exports.homelist = function(req, res) {
             lat: 28.633919,
             //lng: 0,
             //lat: 0,
-            maxDistance: 2000
+            maxDistance: 2000 // this distance is in meters
         }
     };
 
@@ -96,6 +111,8 @@ module.exports.homelist = function(req, res) {
         // validate that the API has returned some data before altering it
         if (response.statusCode === 200 && data.length) {
             for (i = 0; i < data.length; i++) {
+                // the distance here is returned in meteres with 15 decimal places and therefore
+                // to represent it in km with less no. decimal places.
                 data[i].distance = _formatDistance(data[i].distance);
             }
         }
@@ -113,6 +130,13 @@ module.exports.homelist = function(req, res) {
         }
         return numDistance + unit;
     }
+};
+*/
+
+
+module.exports.homelist = function(req, res) {
+    // rendering should be done after the data has been fetched from the database
+    renderHomepage(req, res);
 };
 
 // ----------------------------------------------------//
@@ -162,7 +186,8 @@ var renderReviewForm = function(req, res, locDetail) {
     res.render("location-review-form", {
         title: "Review " + locDetail.name + "on Locator",
         pageHeader: { title: "Review " + locDetail.name },
-        error: req.query.err
+        error: req.query.err,
+        url: req.originalUrl
     });
 }
 
