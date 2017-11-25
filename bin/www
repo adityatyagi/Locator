@@ -7,7 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('locator:server');
 var http = require('http');
-
+var https = require('https');
+var fs = require('fs');
 /**
  * Get port from environment and store in Express.
  */
@@ -18,13 +19,19 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
-var server = http.createServer(app);
+if (process.env.NODE_ENV === 'production') {
+    var credentials = {
+        key: fs.readFileSync("./cafefinder.key", "utf8"),
+        cert: fs.readFileSync("./cafefinder.cert", "utf8")
+    }
+    var server = https.createServer(credentials, app);
+} else {
+    var server = http.createServer(app);
+}
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

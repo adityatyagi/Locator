@@ -2,7 +2,6 @@
 For the distances: https://forums.manning.com/posts/list/37802.page
 https://docs.mongodb.com/manual/reference/command/geoNear/
 */
-
 var request = require('request');
 
 // the Base URL for the requests made to the API will be different for the live and the development environment
