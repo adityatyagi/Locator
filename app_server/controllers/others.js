@@ -7,3 +7,8 @@ module.exports.about = function(req, res) {
 
     });
 };
+
+// creating a new express controller to deliver a page template - SPA
+module.exports.angularApp = function(req, res) {
+    res.render('layout', { title: 'Locator' });
+};

@@ -1,0 +1,31 @@
+(function() {
+
+
+
+    angular
+        .module('locatorApp')
+        .filter('formatDistance', formatDistance);
+
+    /*
+    // create a custom filter to apply formatting to distances
+    var isNumeric = function(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+    */
+
+
+    function formatDistance() {
+        return function(distance) {
+            var numDistance, unit;
+            if (distance > 1) {
+                numDistance = parseFloat(distance / 1000).toFixed(1);
+                unit = 'km'
+            } else {
+                numDistance = parseInt(distance, 10);
+                unit = 'm';
+            }
+            return numDistance + unit;
+        }
+    }
+
+})();

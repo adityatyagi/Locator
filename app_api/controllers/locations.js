@@ -5,8 +5,10 @@ var mongoose = require('mongoose'); // gives controller access to the database c
 var Loc = mongoose.model('Location'); // brings in the location model so that we can interact with the Locations collection
 
 module.exports.locationsListByDistance = function(req, res) {
-    var lng = parseFloat(req.query.lng);
-    var lat = parseFloat(req.query.lat);
+    //var lng = parseFloat(req.query.lng);
+    //var lat = parseFloat(req.query.lat);
+    var lng = 77.217867;
+    var lat = 28.633919;
     var maxDistance = parseFloat(req.query.maxDistance);
 
     var point = {
