@@ -8,7 +8,6 @@
 
 
     function ratingStars() {
-        console.log('HI');
         return {
 
             scope: {

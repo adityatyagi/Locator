@@ -64,8 +64,15 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 
 // Telling the application when to use which routes, to use server application routes or api routes
 // for the incoming requests.
-app.use('/', routes);
+//app.use('/', routes);
+
+
 app.use('/api', routesApi);
+app.use(function(req, res) {
+    res.sendFile(path.join(__dirname, 'app_client', index.html));
+});
+
+
 
 app.use('/users', users);
 

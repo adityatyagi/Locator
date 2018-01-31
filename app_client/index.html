@@ -1,0 +1,46 @@
+<DOCTYPE html>
+    <html ng-app="locatorApp">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <base href="/">
+        <title>Locator</title>
+        <link rel="stylesheet" href="/bootstrap/css/amelia.bootstrap.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="icon" href="favicon.ico">
+
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div ng-view></div>
+        </div>
+
+
+        <script src="/angular/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-route.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-sanitize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+        <script src="/app.js"></script>
+        <script src="/home/home.controller.js"></script>
+        <script src="/about/about.controller.js"></script>
+        <script src="/locationDetail/locationDetail.controller.js"></script>
+        <script src="/common/services/locatorData.service.js"></script>
+        <script src="/common/services/geolocation.service.js"></script>
+        <script src="/common/filters/formatDistance.filter.js"></script>
+        <script src="/common/filters/addHtmlLineBreaks.filter.js"></script>
+        <script src="/common/directives/footerGeneric/footerGeneric.directive.js"></script>
+        <script src="/common/directives/navigation/navigation.directive.js"></script>
+        <script src="/common/directives/ratingStars/ratingStars.directive.js"></script>
+        <script src="/common/directives/pageHeader/pageHeader.directive.js"></script>
+        <script src="/javascripts/jquery-3.2.1.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/javascripts/validation.js"></script>
+
+
+
+    </body>
+
+    </html>
+</DOCTYPE>

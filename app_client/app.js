@@ -5,23 +5,36 @@
     //IIFE
 
 
-    angular.module('locatorApp', ['ngRoute']);
+    angular.module('locatorApp', ['ngRoute', 'ngSanitize', 'ui.bootstrap']);
 
     // config function will define different routes for the angular application
-    function config($routeProvider) {
+    function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                //will hold route definations
-                templateUrl: 'home/home.view.html',
+                templateUrl: '/home/home.view.html',
                 controller: 'homeCtrl',
                 controllerAs: 'vm'
-
+            })
+            .when('/about', {
+                templateUrl: '/common/views/genericText.view.html',
+                controller: 'aboutCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/location/:locationid', {
+                templateUrl: '/locationDetail/locationDetail.view.html',
+                controller: 'locationDetailCtrl',
+                controllerAs: 'vm'
             })
             .otherwise({ redirectTo: '/' });
+
+        $locationProvider.html5Mode({
+            enabled: true,
+            //requireBase: false
+        });
     }
 
     angular
         .module('locatorApp')
-        .config(['$routeProvider', config]);
+        .config(['$routeProvider', '$locationProvider', config]);
 
 })();

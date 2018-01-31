@@ -9,7 +9,14 @@
     // if this is not done, then the dependencies will become a,b,c, i.e letters which will break the code during minification 
 
     function homeCtrl($scope, locatorData, geolocation) {
+
+        if (window.location.pathname !== '/') {
+            window.location.href = '/#' + window.location.pathname;
+        }
+
         var vm = this;
+
+        // this will go in the pageHeader directive in the view
         vm.pageHeader = {
             title: 'Locator',
             strapline: 'Find places to work with wifi near you!'
