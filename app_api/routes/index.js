@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var ctrlLocations = require('../controllers/locations');
 var ctrlReviews = require('../controllers/reviews');
+var ctrlAuth = require('../controllers/authentication');
+
+// API for login and registration
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
 
 // API routes for the locations
 router.get('/locations', ctrlLocations.locationsListByDistance);

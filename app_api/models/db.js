@@ -4,6 +4,7 @@ require('path').win32;
 
 // exposing the locations model to the application through db.js
 require('./locations');
+require('./users');
 
 var mongoose = require('mongoose');
 

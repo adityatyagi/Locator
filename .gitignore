@@ -1,3 +1,6 @@
 # Dependency directory
 node_modules
 Dumping_and_Restoring.txt
+
+# Environment Variables
+.env

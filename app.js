@@ -1,16 +1,22 @@
-//import { request } from 'https';
-
+require('dotenv').load();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('./app_api/models/db');
-
 //for uglifyJS - minimizing the files
 var uglifyJs = require('uglify-js');
 var fs = require('fs');
+
+// the placement of the passport modules is very important
+var passport = require('passport'); // passport is ALWAYS required before the db models
+
+require('./app_api/models/db');
+
+require('./app_api/config/passport'); // config file is required after the db models, because it (strategy) needs the user models to exist
+
+
 
 
 // routes for the server application (express application routes) - MEN App
@@ -59,6 +65,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //for moving the application logic to the browser from the server, we need to send the entire folder as it is
 // this is for making the application SPA
 app.use(express.static(path.join(__dirname, 'app_client')));
+
+// passport must be initialised after the static routes have been defined
+app.use(passport.initialize());
 
 
 
