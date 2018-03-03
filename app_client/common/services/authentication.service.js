@@ -34,6 +34,7 @@
 
         var logout = function() {
             $window.localStorage.removeItem('locator-token');
+            $window.location.reload();
         }
 
         var isLoggedIn = function() {

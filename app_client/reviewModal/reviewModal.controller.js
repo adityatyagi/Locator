@@ -34,12 +34,10 @@
         };
 
         vm.doAddReview = function(locationid, formData) {
-            console.log(formData);
             locatorData.addReviewById(locationid, {
                 rating: formData.rating,
                 reviewText: formData.reviewText
             }).then(function(response) {
-                console.log('this is the response' + response);
                 vm.modal.close(response);
             }, function(e) {
                 console.log(e);
@@ -50,7 +48,6 @@
 
         vm.modal = {
             close: function(result) {
-                console.log('this is the result: ' + result);
                 $uibModalInstance.close(result); //this will send a promise to the parent controller
             },
             cancel: function() {
