@@ -8,9 +8,9 @@
         .service('locatorData', locatorData);
 
 
-    locatorData.$inject = ['$http'];
+    locatorData.$inject = ['$http', 'authentication'];
 
-    function locatorData($http) {
+    function locatorData($http, authentication) {
 
         // to fetch the details of all the cafes around a gicen location
         var locationByCoords = function(lat, lng) {
@@ -24,7 +24,11 @@
 
         //to add review from the modal on the location-detail page
         var addReviewById = function(locationid, data) {
-            return $http.post('/api/locations/' + locationid + '/reviews', data);
+            return $http.post('/api/locations/' + locationid + '/reviews', data, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
         };
 
         return {

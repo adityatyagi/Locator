@@ -9,6 +9,7 @@
         var vm = this;
         vm.locationData = locationData;
 
+
         vm.modal = {
             cancel: function() {
                 $uibModalInstance.dismiss('cancel');
@@ -18,7 +19,7 @@
         vm.onSubmit = function() {
             // validating the form
             vm.formError = "";
-            if (!vm.formData.name || !vm.formData.rating || !vm.formData.reviewText) {
+            if (!vm.formData.rating || !vm.formData.reviewText) {
                 vm.formError = "All fields required, please try again!";
                 return false; // this will prevent the form from being submitted
             } else {
@@ -31,14 +32,14 @@
         };
 
         vm.doAddReview = function(locationid, formData) {
+            console.log(formData);
             locatorData.addReviewById(locationid, {
-                author: formData.name,
                 rating: formData.rating,
                 reviewText: formData.reviewText
-            }).then(function success(response) {
+            }).then(function(response) {
                 console.log(response);
                 vm.modal.close(response);
-            }, function error(e) {
+            }, function(e) {
                 console.log(e);
                 vm.formError = "Your review has not been saved, try again!";
             });

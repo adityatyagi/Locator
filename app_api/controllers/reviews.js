@@ -6,13 +6,38 @@
 var mongoose = require('mongoose'); // gives controller access to the database connection
 var Loc = mongoose.model('Location'); // brings in the location model so that we can interact with the Locations collection
 
-var doAddReview = function(req, res, location) {
+// to use data from JWT to query the database
+var User = mongoose.model('User');
+
+var getAuthor = function(req, res, callback) {
+    if (req.payload && req.payload.email) {
+        User
+            .findOne({ email: req.payload.email })
+            .exec(function(err, user) {
+                if (!user) {
+                    sendJsonResponse(res, 404, { "message": "User not found" });
+                    return;
+                } else if (err) {
+                    console.log(err);
+                    sendJsonResponse(res, 404, err);
+                    return;
+                }
+                callback(req, res, user.name);
+            })
+    } else {
+        sendJsonResponse(res, 404, { "message": "User Not Found" });
+        return;
+    }
+};
+
+
+var doAddReview = function(req, res, location, author) {
     if (!location) {
         sendJsonResponse(res, 404, { "message": "Location Not Found" });
     } else {
         // create the body of the review object and push it into the location's "reviews" array found
         location.reviews.push({
-            author: req.body.author,
+            author: author,
             rating: req.body.rating,
             reviewText: req.body.reviewText
         });
@@ -84,23 +109,23 @@ var doSetAverageRating = function(location) {
 
 
 module.exports.reviewsCreate = function(req, res) {
-    // locating the parent document with the locationid
-    var locationid = req.params.locationid;
-
-    if (locationid) {
-        Loc
-            .findById(locationid)
-            .select('reviews')
-            .exec(function(err, location) {
-                if (err) {
-                    sendJsonResponse(res, 404, err);
-                } else {
-                    doAddReview(req, res, location);
-                }
-            });
-    } else {
-        sendJsonResponse(res, 404, { "message": "Review Not Found, Location required" });
-    }
+    // validate that the user exists in the database and then return user's name to be used in the controller
+    getAuthor(req, res, function(req, res, userName) {
+        if (req.params.locationid) {
+            Loc
+                .findById(req.params.locationid)
+                .select('reviews')
+                .exec(function(err, location) {
+                    if (err) {
+                        sendJsonResponse(res, 404, err);
+                    } else {
+                        doAddReview(req, res, location, userName); // pass user's name in doAddReview function
+                    }
+                });
+        } else {
+            sendJsonResponse(res, 404, { "message": "Review Not Found, Location required" });
+        }
+    });
 };
 
 module.exports.reviewsReadOne = function(req, res) {
