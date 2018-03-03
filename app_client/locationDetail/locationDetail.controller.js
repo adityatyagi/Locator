@@ -39,9 +39,10 @@
                 }
             });
 
-            modalInstance.result.then(function success(response) {
-                vm.data.location.reviews.push(response); // add newly added review to the review array 
-            }, function error(e) {
+            modalInstance.result.then(function(response) {
+                console.log('this is the response just before getting added: ' + response.data);
+                vm.data.location.reviews.push(response.data); // add newly added review to the review array 
+            }, function(e) {
                 console.log(e);
             })
         };

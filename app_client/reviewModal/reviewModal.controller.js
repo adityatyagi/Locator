@@ -3,7 +3,9 @@
         .module('locatorApp')
         .controller('reviewModalCtrl', reviewModalCtrl);
 
+    // locationData is a parameter and not a service, which helps to get the location name and id from the location details page
     reviewModalCtrl.$inject = ['$uibModalInstance', 'locatorData', 'locationData'];
+
 
     function reviewModalCtrl($uibModalInstance, locatorData, locationData) {
         var vm = this;
@@ -37,7 +39,7 @@
                 rating: formData.rating,
                 reviewText: formData.reviewText
             }).then(function(response) {
-                console.log(response);
+                console.log('this is the response' + response);
                 vm.modal.close(response);
             }, function(e) {
                 console.log(e);
@@ -48,6 +50,7 @@
 
         vm.modal = {
             close: function(result) {
+                console.log('this is the result: ' + result);
                 $uibModalInstance.close(result); //this will send a promise to the parent controller
             },
             cancel: function() {
